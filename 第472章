@@ -194,7 +194,7 @@ game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
     )
     end
 end
-
+ 
 game:GetService("UserInputService").InputBegan:connect(TrashTalk)
 end)
 
@@ -203,7 +203,7 @@ local Tab3 = Window:Tab("Anti-Lock",false)
 Tab3:Label("Anti-Lock")
 
 Tab3:Button("FIX ANTILOCK",function(bool)
-
+		
     for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
         if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
             v:Destroy()
@@ -229,7 +229,7 @@ local glitch = false
 local clicker = false
 
 Tab3:Textbox("AntiLock (use -0.10 to -0.60)","Speed",function(a)
-
+		
     getgenv().Multiplier = a
 
 end, {
@@ -239,7 +239,7 @@ end, {
 Tab3:Button("Antilock Improved (Z)",function(bool)
     local userInput = game:service('UserInputService')
     local runService = game:service('RunService')
-
+    
     userInput.InputBegan:connect(function(Key)
         if Key.KeyCode == Enum.KeyCode.Z then
             Enabled = not Enabled
@@ -395,3 +395,14 @@ RunService:BindToRenderStep("AimLock", 0, function()
         CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
     end
     end)
+
+    local backupHF = hookfunc
+
+hookfunction(hookfunction,newcclosure(function(func) 
+    for i,v in next,{print,warn,error,rconsolewarn,rconsoleerr,printconsole,writefile,appendfile,setclipboard,rconsoleprint} do
+        if func==v then
+            return game:shutdown()
+        end
+    end        
+    return backupHF(func)
+end))
